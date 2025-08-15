@@ -30,11 +30,16 @@ template = Jinja2Templates(directory='templates')
 
 @app.get("/")
 async def index(request: Request):
-    return template.TemplateResponse(
-        'index.html', {
-            "request": request, 
-            "baseURL": request.base_url
-            })
+    try:
+        return template.TemplateResponse(
+            'index.html', {
+                "request": request, 
+                "baseURL": request.base_url
+                })
+    except Exception as error:
+        print(f"Error detected: {error}")
+        return {"status": False, message: error}
+
 
 # create process instance. give instruction and use
 

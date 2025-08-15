@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Receipt Scanner</title>
+</head>
+<body class="h-screen flex flex-col justify-center items-center bg-black">
+
+    <div class="w-auto h-auto bg-gray-700 text-white rounded-xl shadow-xl p-4">
+        <p class="text-xl font-bold flex items-center flex-col">Receipt Scanner [Tester]</p>
+
+        <div class="p-2 border shadow-xl mt-4 flex items-center flex-row">
+            <input type="file" placeholder="Select a file"
+            id="upload"
+            >
+            <i class="fa fa-upload"></i>
+        </div>
+
+        <p id="output" class="font-bold text-red-300"></p>
+        <div id="result" class="mt-4">
+
+        </div>
+
+
+    </div>
+    
+    <div class="absolute bottom-0 right-0 bg-gray-300 p-4 rounded-lg">
+        <p class="font-bold text-lg">Designed and Developed by Nullwafemi</p>
+    </div>
+    <script>
+           document.querySelector('#upload').addEventListener('change', (event)=>{
+            const file = event.target.files[0]
+            const url = '{{baseURL}}extract_info'
+
+            if (file) {
+                // parst file to api
+                const form = new FormData()
+                form.append('file', file)
+                form.append('name', "OLUWAFEMI")
+                form.append('bank', 'PalmPay')
+                
+                fetch(url, {
+                    method: "POST",
+                    body: form
+                }).then(async (response)=>{
+                    if (!response.ok) {
+                        document.querySelector("#output").innerHTML = "operation failed. try again"
+                        return
+                    }else{
+                        // populate the space with output
+                        const {name, amount, bank, date, status} = await response.json()
+
+                        const statusMsg = status === true? "Succeful": "incomplete, parameter missing. Try again using correct api."        
+                
+                        document.querySelector("#result").innerHTML = `
+                        <p class="text-md font-bold">Scanner Output</p>
+                        <p>Status: <span id="status">${statusMsg}</span></p>
+
+                            <div>
+                                <span>Name: </span> <span>${name}</span>
+                            </div>
+                            <div>
+                                <span>Bank: </span> <span>${bank}</span>
+                            </div>
+                            <div>
+                                <span>Amount: </span> <span>${amount}</span>
+                            </div>
+                            <div>
+                                <span>Date: </span> <span>${date}</span>
+                            </div>
+
+                        `
+                        return
+                    }
+
+
+                })
+            }else{
+                document.querySelector("#output").innerHTML = "File Not Selected"
+                return
+            }
+
+
+           })
+
+    </script>
+</body>
+</html>

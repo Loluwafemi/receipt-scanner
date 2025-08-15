@@ -2,13 +2,9 @@
     import type { params, paramValues, sharedParams } from "$lib/types";
     export let sharedParam:sharedParams;
     export let processedAxis: params
-
-    let demoData: paramValues = {
-      accountName: "",
-      amount: 0,
-      bankName: "",
-      dateTime: ""
-    }
+    export let outputData: paramValues;
+    
+    
 
    </script>
    
@@ -22,6 +18,7 @@
       <div class="drawer-body border-base-content/20 h-full border-e p-6">
         <div class="border-base-content/20 rounded-box skeleton-striped h-full border">
           <div>
+            <form action="?/submit_axis" method="post">
             <div class="card sm:max-w-sm">
               <div class="card-body border p-4">
                 <h5 class="card-title mb-2.5">Verify Axis</h5>
@@ -35,12 +32,13 @@
                 </div>
               </div>
             </div>
+            </form>
 
             <div class="card sm:max-w-sm">
               <div class="card-body border p-4">
                 <h5 class="card-title mb-2.5">Gnerated Parameters</h5>
                 <p class="mb-4">Note: Confirm the output before you register the receipt's axis</p>
-                <p class="mb-4">{JSON.stringify(demoData, null, 3)}</p>
+                <p class="mb-4">{JSON.stringify(outputData, null, 3)}</p>
 
                 <div class="card-actions">
                   <button on:click={()=>{

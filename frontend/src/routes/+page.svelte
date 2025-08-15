@@ -2,7 +2,7 @@
     import Lsidebar from "$lib/components/LSIDEBAR.svelte";
     import Main from "$lib/components/Main.svelte";
     import Rsidebar from "$lib/components/RSIDEBAR.svelte";
-    import type { paramAxis, params, paramStatus, sharedParams } from "$lib/types";
+    import type { paramAxis, params, paramStatus, paramValues, sharedParams } from "$lib/types";
     
 
 
@@ -14,21 +14,22 @@
             dateTime: false
         },
         file: null,
-        areas: null
+        areas: null,
+        output: null
         
     }
 
   let isVisible: 'hidden' | "block" = 'hidden'
   let axixValues:params;
   let processedAxis: params
+  let outputData: paramValues;
 
 </script>
 
     <Lsidebar bind:axixValues bind:isVisible bind:sharedParam />
 
     <div class="flex mx-20 grow flex-col lg:px-75">
-        <Main bind:processedAxis bind:axixValues={axixValues} bind:sharedParam />
+        <Main bind:outputData bind:processedAxis bind:axixValues={axixValues} bind:sharedParam />
     </div>
-    
 
-    <Rsidebar bind:processedAxis bind:sharedParam />
+    <Rsidebar bind:outputData bind:processedAxis bind:sharedParam />

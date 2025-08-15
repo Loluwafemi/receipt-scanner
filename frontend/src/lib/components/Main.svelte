@@ -1,11 +1,13 @@
 <script lang="ts">
     import { Fabricating } from "$lib/fiber/extractor";
-    import type { paramAxis, params, sharedParams } from "$lib/types";
+    import type { paramAxis, params, paramValues, sharedParams } from "$lib/types";
     import { Canvas, FabricImage, Rect } from "fabric";
     export let sharedParam: sharedParams;
     export let axixValues: params;
     export let processedAxis: params;
+    export let outputData: paramValues;
     let readyToDraw: boolean = false
+    let fileType:string;
 
     const workingStyle =
         "card-body border-base-content/20 rounded-box flex justify-center items-center";
@@ -39,15 +41,17 @@
             const reader = new FileReader();
             reader.addEventListener("load", async (readerEvent) => {
                 const image = new Image();
+                const currentfileType = readerEvent.target?.result?.toString().split(";")[0].split(":")[1]
+                fileType = currentfileType!
+                
                 image.setAttribute("src", readerEvent.target?.result);
                 image.addEventListener("load", () => {
                     fabricObject = new Fabricating(image, canvas);
                 });
             });
-
             reader.readAsDataURL(imageFile);
             readyToDraw = true
-
+            sharedParam.file = imageFile
         }
     }
 
@@ -58,8 +62,11 @@
         }
     }
 
-    function submitViewPoint(axixValues: params) {
-         processedAxis = fabricObject.lookupViewPoint(axixValues).ProcessparamAxis
+    async function submitViewPoint(axixValues: params) {
+        const resultFromScanner = (await fabricObject.lookupViewPoint(axixValues, fileType))
+        processedAxis = resultFromScanner.ProcessparamAxis
+        sharedParam.areas = axixValues
+        outputData = resultFromScanner.output        
     }
 
 </script>
@@ -73,7 +80,7 @@
                 <input on:change={selectFile} class="btn btn-primary" placeholder="Select Receipt" type='file' accept="image/*" multiple={false}/>
             </div>
         </div>
-        <button on:click={()=> submitViewPoint(axixValues)} 
+        <button on:click={async ()=> await submitViewPoint(axixValues)} 
             class="bg-primary rounded-lg p-2"
             disabled={!readyToDraw}
             >

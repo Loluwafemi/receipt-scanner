@@ -1,1 +1,0 @@
-from lib.utils.mytypes import ReceiptParameter

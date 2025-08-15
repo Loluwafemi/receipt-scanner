@@ -14,8 +14,9 @@ export type paramStatus = {
 
 export type sharedParams = {
     status: paramStatus | null;
-    file: any;
+    file: File | null;
     areas: params | null;
+    output: paramValues | null
 }
 
 export type paramAxis = {
@@ -26,10 +27,10 @@ export type paramAxis = {
 }
 
 export type paramValues = {
-    bankName: string,
-    accountName: string,
-    amount: number,
-    dateTime: string
+    bankName: string | null,
+    accountName: string | null,
+    amount: number | null,
+    dateTime: string | null
 }
 
 export type ProcessedPointers = { x: number, y:number, h:number, w:number }

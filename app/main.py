@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from lib import extract_info_Func
 from typing import Union, Annotated
 from lib.server import *
-import threading
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 

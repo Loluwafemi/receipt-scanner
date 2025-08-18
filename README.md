@@ -14,7 +14,33 @@
 
     `uvicorn main:app --reload`
 
+4. Use App
 
-    `source /home/nullwafemi/.virtualenvs/my_venv/bin/activate`
+> Note: The user interface won't be as efficient as using the API. Some fields are intentionally fixed.
 
-    `pa website delete --domain nullwafemi.pythonanywhere.com`
+#### API Structure:
+    <!-- make sure you submit a form containing the following
+    e.g file: the receipt image file from an input and must be an instance of a File class.
+     -->
+    const form = new FormData()
+    form.append('file', file)
+    form.append('name', "Bank Account Name")
+    form.append('bank', "Bank Name")
+
+    fetch(base_url/extract_info, {
+        body: form,
+        method: "POST"
+    })
+
+    This returns an object or an error object if error is discovered when scanning,
+    Possible error:
+    - pytesseract not found on your machine
+    - requirements and package incompatibilities on version
+
+
+
+
+
+<!-- source /home/nullwafemi/.virtualenvs/my_venv/bin/activate -->
+
+<!-- pa website delete --domain nullwafemi.pythonanywhere.com -->

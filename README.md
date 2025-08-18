@@ -8,3 +8,8 @@
 3. Start Program
 
     `uvicorn main:app --reload`
+
+
+    `source /home/nullwafemi/.virtualenvs/my_venv/bin/activate`
+
+    `pa website delete --domain nullwafemi.pythonanywhere.com`

@@ -28,6 +28,7 @@
 4. Use application
 
 
+
 > Note: The user interface will provide just 90% successful data as the [account name & bank name] is fixed. Kindly use the API `/extract_info` as follows.
 
 #### API Structure:

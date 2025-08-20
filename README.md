@@ -14,7 +14,19 @@
 
     `uvicorn main:app --reload`
 
-4. Use App
+4. Use application
+
+
+### Using Docker
+> Make sure docker/Docker Desktop is installed on your machine
+1. Build Image: `docker build -t <image_name> .`
+
+2. Run container: `docker run -d -p 8000:8000 <image_name>`
+
+3. Or run container from docker desktop
+
+4. Use application
+
 
 > Note: The user interface will provide just 90% successful data as the [account name & bank name] is fixed. Kindly use the API `/extract_info` as follows.
 

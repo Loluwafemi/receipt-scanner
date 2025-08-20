@@ -3,6 +3,7 @@ from typing import Annotated
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.wsgi import WSGIMiddleware
 from pydantic import BaseModel
+from a2wsgi import ASGIMiddleware
 
 
 from fastapi import UploadFile
@@ -10,9 +11,34 @@ from cv2 import imdecode, IMREAD_COLOR, cvtColor, COLOR_BGR2GRAY, GaussianBlur, 
 import numpy as np
 import re
 import pytesseract
+from dotenv import load_dotenv
+import os
 
-# used locally
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+load_dotenv()
+
+
+
+env = os.getenv('ENVIROMENT', 'development').strip("'\"")
+
+print(f"Current environment: {env}")
+
+if env == 'development':
+    # this is the path to tesseract on my local machine, you can change it to your own path
+    # if you are using a different environment, you can set the path to tesseract accordingly
+    # for example, if you are using a virtual environment, you can set the path to tesseract in the virtual environment
+    # or if you are using a docker container, you can set the path to tesseract in the dockerfile
+    # or if you are using a cloud service, you can set the path to tesseract in the cloud service configuration
+    # for now, I will just set it to the default path on my local machine, which is where I have tesseract installed     
+    # used locally
+    pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+
+elif env == 'production':
+    # this is the path to tesseract on my production server, you can change it to your own path
+    # if you are using a different environment, you can set the path to tesseract accordingly
+    # for example, if you are using a virtual environment, you can set the path to tesseract in the virtual environment
+    # or if you are using a docker container, you can set the path to tesseract in the dockerfile
+    # or if you are using a cloud service, you can set the path to tesseract in the cloud service configuration
+    pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
 ''' 
     This Project is intend to scan and interpret contents on receipt of any kind as long as the following parameter is found on it:
@@ -66,6 +92,7 @@ async def extract_info(
     return {"name": "None", "bank": "None", "amount": "0", "date": "None", "status": False}
 
 
+application = ASGIMiddleware(app)
 
 # DO NOT TOUCH THIS AREA
 ''' 

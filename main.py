@@ -33,7 +33,7 @@ if env == 'development':
     pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
 elif env == 'production':
-    # this is the path to tesseract on my production server, you can change it to your own path
+    # this is the path to tesseract on my production server e.g docker, you can change it to your own path
     # if you are using a different environment, you can set the path to tesseract accordingly
     # for example, if you are using a virtual environment, you can set the path to tesseract in the virtual environment
     # or if you are using a docker container, you can set the path to tesseract in the dockerfile

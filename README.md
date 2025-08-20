@@ -16,7 +16,7 @@
 
 4. Use App
 
-> Note: The user interface won't be as efficient as using the API. Some fields are intentionally fixed.
+> Note: The user interface will provide just 90% successful data as the [account name & bank name] is fixed. Kindly use the API `/extract_info` as follows.
 
 #### API Structure:
     <!-- make sure you submit a form containing the following
@@ -24,8 +24,8 @@
      -->
     const form = new FormData()
     form.append('file', file)
-    form.append('name', "Bank Account Name")
-    form.append('bank', "Bank Name")
+    form.append('name', <BANK ACCOUNT NAME>)
+    form.append('bank', <BANK NAME>)
 
     fetch(base_url/extract_info, {
         body: form,

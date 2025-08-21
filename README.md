@@ -9,7 +9,7 @@ Expense tracking and receipt management are essential tasks for individuals and 
 ## Key Features
 
 - **Automated Receipt Capture:** Quickly scan or upload receipt images from any device.
-- **OCR-Based Data Extraction:** Utilizes Optical Character Recognition (OCR) to extract key data such as date, vendor, amount, and line items.
+- **OCR-Based Data Extraction:** Utilizes Optical Character Recognition (OCR) to extract key data such as date, name, amount, and bank name.
 - **User-Friendly Interface:** Responsive, intuitive frontend built for ease-of-use across devices.
 
 ## Use Cases

@@ -10,7 +10,60 @@
 <body class="h-[100vh] flex flex-col justify-center items-center bg-black">
 
     <div class="w-auto h-auto bg-gray-700 text-white rounded-xl shadow-xl p-4">
-        <p class="text-xl font-bold flex items-center flex-col">Receipt Scanner</p>
+        <p class="text-xl font-bold flex items-center flex-col">Receipt Scanner &lt;Test Interface&gt;</p>
+        <p class="text-sm text-center text-gray-300">case sensitive</p>
+
+        <div class="mt-4 flex items-center flex-row justify-between">
+            <input class="border p-2" name="name" type="text" placeholder="Enter Name On Receipt"
+            id="name"
+            >
+
+
+            <input class="ms-1 border p-2" type="text" placeholder="Enter Bank On Receipt"
+            id="bank"
+            >
+
+            <!-- <select name="currency" id="currency" class="ml-4 p-2 rounded-lg bg-gray-600">
+                
+                <option selected value="--">Select Currency</option>
+                <option value="₦">₦aira</option>
+                <option value="$">$Dollar</option>
+                <option value="£">£Pound</option>
+                <option value="€">€Euro</option>
+                <option value="₹">₹Rupee</option>
+                <option value="₩">₩Won</option>
+                <option value="¥">¥Yen</option>
+                <option value="₺">₺Lira</option>
+                <option value="₫">₫Dong</option>
+                <option value="₱">₱Peso</option>
+                <option value="₲">₲Guarani</option>
+                <option value="₴">₴Hryvnia</option>
+                <option value="₦">₦Naira</option>
+                <option value="₡">₡Colon</option>
+                <option value="₸">₸Tenge</option>
+                <option value="₮">₮Tugrik</option>
+                <option value="₤">₤Lira (old)</option>
+                <option value="₳">₳Austral (old)</option>
+                <option value="₰">₰Penny (old)</option>
+                <option value="₯">₯Drachma (old)</option>
+                <option value="₠">₠Euro (old)</option>
+                <option value="₣">₣Franc (old)</option>
+                <option value="₢">₢Cruzeiro (old)</option>
+                <option value="₥">₥Mill (old)</option>
+                <option value="₧">₧Peseta (old)</option>
+                <option value="₨">₨Rupee (old)</option>
+                <option value="₳">₳Austral</option>
+                <option value="₤">₤Lira</option>
+                <option value="₰">₰Penny</option>
+                <option value="₯">₯Drachma</option>
+                <option value="₠">₠Euro</option>
+                <option value="₣">₣Franc</option>
+                <option value="₢">₢Cruzeiro</option>
+                <option value="₥">₥Mill</option>
+            </select> -->
+        </div>
+
+
         <div class="p-2 border shadow-xl mt-4 flex items-center flex-row">
             <input type="file" placeholder="Select a file"
             id="upload"
@@ -35,7 +88,37 @@
         </p>
     </div>
     <script>
+
+            const name = document.querySelector("#name")
+            const bank = document.querySelector("#bank")
+            document.querySelector('#upload').setAttribute('disabled', true)
+
+            name.addEventListener('input', (event)=> {
+
+            if (event.target.value == '' || bank.value == '') {
+                document.querySelector('#upload').setAttribute('disabled', true)
+            }else {
+                document.querySelector('#upload').setAttribute('disabled', false)
+                document.querySelector('#upload').removeAttribute('disabled')
+            }
+
+            })
+
+            bank.addEventListener('input', (event)=> {
+
+            if (event.target.value == '' || name.value == '') {
+                document.querySelector('#upload').setAttribute('disabled', true)
+            }else {
+                document.querySelector('#upload').setAttribute('disabled', false)
+                document.querySelector('#upload').removeAttribute('disabled')
+            }
+
+            })
+            
+
+
            document.querySelector('#upload').addEventListener('change', (event)=>{
+            
             const file = event.target.files[0]
             const url = '{{baseURL}}extract_info'
 
@@ -43,8 +126,8 @@
                 // parst file to api
                 const form = new FormData()
                 form.append('file', file)
-                form.append('name', "OLUWAFEMI")
-                form.append('bank', 'Kuda')
+                form.append('name', name.value)
+                form.append('bank', bank.value)
                 
                 fetch(url, {
                     method: "POST",
